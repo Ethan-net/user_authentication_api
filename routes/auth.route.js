@@ -8,6 +8,8 @@ const {
   resetPass,
 } = require("../controller/auth.controller");
 
+const { verifyToken } = require("../middleware/verifyToken");
+
 const router = express.Router();
 
 router.post("/signup", signup);

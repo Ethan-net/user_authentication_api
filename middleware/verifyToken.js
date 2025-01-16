@@ -15,5 +15,15 @@ const verifyToken = (req, res, next) => {
         message: "unauthorized- invalid Token",
       });
     }
-  } catch (error) {}
+    req.userId = decoded.userId;
+    next();
+  } catch (error) {
+    console.log("error in Verifying ", error);
+    return res.status(500).json({
+      message: " Server Error",
+      success: false,
+    });
+  }
 };
+
+module.exports = verifyToken;

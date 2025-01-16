@@ -221,4 +221,20 @@ const resetPass = async (req, res) => {
   }
 };
 
+const checkAuth = async (req, res) => {
+  try {
+    const user = await userSchema.findById(req.userId);
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "user not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      user: { ...user._doc, password: undefined },
+    });
+  } catch (error) {}
+};
+
 module.exports = { signup, login, logout, verifyEmail, forgotPass, resetPass };
