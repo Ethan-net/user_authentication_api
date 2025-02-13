@@ -6,11 +6,13 @@ const {
   verifyEmail,
   forgotPass,
   resetPass,
+  checkAuth,
 } = require("../controller/auth.controller");
-
-const { verifyToken } = require("../middleware/verifyToken");
+const verifyToken = require("../middleware/verifyToken");
 
 const router = express.Router();
+
+router.get("/check-auth", verifyToken, checkAuth);
 
 router.post("/signup", signup);
 router.post("/login", login);

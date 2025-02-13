@@ -46,7 +46,12 @@ const signup = async (req, res) => {
         password: undefined,
       },
     });
-  } catch (e) {}
+  } catch (e) {
+    return res.status(401).json({
+      message: "sign up unsuccessfully",
+      success: false,
+    });
+  }
 };
 
 const verifyEmail = async (req, res) => {
@@ -234,7 +239,20 @@ const checkAuth = async (req, res) => {
       success: true,
       user: { ...user._doc, password: undefined },
     });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
-module.exports = { signup, login, logout, verifyEmail, forgotPass, resetPass };
+module.exports = {
+  signup,
+  login,
+  logout,
+  verifyEmail,
+  forgotPass,
+  resetPass,
+  checkAuth,
+};
