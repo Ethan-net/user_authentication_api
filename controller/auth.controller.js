@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const generateTokenAndSetCookie = require("../utils/generateTokenAndSetCookie");
 const {
   sendVerificationEmail,
-  sendwelcomeEmail,
+  sendWelcomeEmail,
   sendPassResetEmail,
   sendPasswordSuccessEmail,
 } = require("../mailtrap/emails");
@@ -48,7 +48,7 @@ const signup = async (req, res) => {
     });
   } catch (e) {
     return res.status(401).json({
-      message: "sign up unsuccessfully",
+      message: "sign up unsuccessfully and check",
       success: false,
     });
   }
@@ -79,7 +79,7 @@ const verifyEmail = async (req, res) => {
     await user.save();
 
     // Send a welcome email
-    await sendwelcomeEmail(user.email, user.name);
+    await sendWelcomeEmail(user.email, user.name);
 
     // Respond with success
     return res.status(200).json({

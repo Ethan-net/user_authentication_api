@@ -1,25 +1,17 @@
-
 const { MailtrapClient } = require("mailtrap");
 
+const TOKEN = process.env.MAILTRAP_TOKEN || "your_mailtrap_api_token"; // Use env variable or fallback
+const ENDPOINT =
+  process.env.MAILTRAP_ENDPOINT || "https://send.api.mailtrap.io/"; // Default Mailtrap endpoint
 
-require('dotenv').config()
-
-const ENDPOINT = process.env.MAILTRAP_ENDPOINT ;
-const TOKEN = process.env.MAILTRAP_TOKEN
-
-
-const mailtrapclient = new MailtrapClient({
+const client = new MailtrapClient({
+  token: TOKEN,
   endpoint: ENDPOINT,
-  token: TOKEN
 });
 
-
 const sender = {
-  email: "hello@demomailtrap.com", 
-  name: "myAuthTest",
+  email: "hello@demomailtrap.com",
+  name: "Auth Test",
 };
 
-
-
-
-module.exports = { mailtrapclient, sender}
+module.exports = { client, sender };
