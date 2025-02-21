@@ -1,15 +1,16 @@
 const express = require("express");
 const authRoutes = require("./routes/auth.route");
 
-const cookiePaser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 
 const databaseconnect = require("./config/dbconnect");
 require("dotenv").config();
 
 const app = express();
+app.use(cookieParser()); // Allows us to pass incoming cookies
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
-app.use(cookiePaser()); // Allows us to pass incoming cookies
 
 const port = process.env.PORT;
 

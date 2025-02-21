@@ -1,19 +1,12 @@
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
-  const token = req.cookie.token;
+  console.log("Received cookies:", req.cookies);
+  const token = req.cookies.myToken;
   if (!token) {
     return res.status(401).json({
       message: "Unauthorized - no token provided",
       status: false,
-    });
-  }
-
-  if (!process.env.JWT_SECRET) {
-    console.error("JWT_SECRET not defined in environment variables");
-    return res.status(500).json({
-      message: "Server misconfiguration",
-      success: false,
     });
   }
 
@@ -26,7 +19,7 @@ const verifyToken = (req, res, next) => {
       });
     }
     req.userId = decoded.userId; // Attach userId to request
-    next(); // Proceed to the next middleware or route handler
+    next(); // Proceed to the next middleware or ro ute handler
   } catch (error) {
     console.error("Error verifying token:", error.message);
     return res.status(500).json({
